@@ -20,7 +20,7 @@ namespace MvcCoreSample.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            return RedirectToAction(nameof(Viewer));
         }
 
         public IActionResult Viewer()
@@ -69,7 +69,8 @@ namespace MvcCoreSample.Controllers
                 var model = new SampleViewerModel
                 {
                     Title = wl.Title,
-                    ViewerUrl = $"{_options.ViewerRoot}?WEBLAYOUT={resId}&SESSION={conn.SessionID}"
+                    WebLayout = resId,
+                    Session = conn.SessionID
                 };
                 return View(model);
             }

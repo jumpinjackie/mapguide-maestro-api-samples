@@ -9,6 +9,8 @@ namespace MvcCoreSample.Models
     {
         public string Title { get; set; }
 
-        public string ViewerUrl { get; set; }
+        public string WebLayout { get; set; }
+
+        public string Session { get; set; }
     }
 }

@@ -1,5 +1,20 @@
-current
--------
+6.0m11
+------
+
+After many milestones without a solid SDK story (due to various libraries now targeting .net standard and being delivered as nuget packages), a new SDK story has been defined.
+
+We now provide a github repo that contains most of the existing SDK contents at: https://github.com/jumpinjackie/mapguide-maestro-sdk
+
+This repo contains:
+ - Existing SDK code samples
+ - The existing "legacy" webforms demo
+ - A new MVC core demo using the Maestro API
+ - The source for the Local Native Connection Provider with 2 project variants:
+   - One referencing MapGuide .net assemblies of your local MapGuide installation
+   - One referencing the MapGuide .net API nuget packages
+
+6.0m5
+-----
 
 MASSIVE BREAKING CHANGES. High level overview:
  - Resource object classes and various interfaces moved to separate OSGeo.MapGuide.ObjectModels assembly

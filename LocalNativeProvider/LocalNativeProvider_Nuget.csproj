@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net471</TargetFramework>
+    <AssemblyName>LocalNativeProvider</AssemblyName>
+    <RootNamespace>LocalNativeProvider</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="mapguide-api-web-x64" Version="3.1.2.9484" />
+    <PackageReference Include="OSGeo.MapGuide.MaestroAPI" Version="6.0.0-pre270" />
+  </ItemGroup>
+
+</Project>

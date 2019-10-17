@@ -44922,6 +44922,8 @@ Styleguide pt-tree
   cursor: row-resize;
 }
 
+@charset "UTF-8";
+
 .invalidated-task-pane {
     opacity: 0.6; /* Real browsers */
     filter: alpha(opacity = 60); /* IE */
@@ -45339,4 +45341,4 @@ div.InfoText
     word-wrap: break-word;
 }
 
-/*# sourceMappingURL=viewer.js.map*/
+/*# sourceMappingURL=viewer.css.map*/

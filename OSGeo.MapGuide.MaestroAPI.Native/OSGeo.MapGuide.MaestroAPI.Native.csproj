@@ -1,0 +1,29 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="OSGeo.MapGuide.MaestroAPI" Version="6.0.0-pre270" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="OSGeo.MapGuide.Foundation">
+      <HintPath>..\..\..\mg-4.0-install\Web\www\mapviewernet\bin\OSGeo.MapGuide.Foundation.dll</HintPath>
+    </Reference>
+    <Reference Include="OSGeo.MapGuide.Geometry">
+      <HintPath>..\..\..\mg-4.0-install\Web\www\mapviewernet\bin\OSGeo.MapGuide.Geometry.dll</HintPath>
+    </Reference>
+    <Reference Include="OSGeo.MapGuide.MapGuideCommon">
+      <HintPath>..\..\..\mg-4.0-install\Web\www\mapviewernet\bin\OSGeo.MapGuide.MapGuideCommon.dll</HintPath>
+    </Reference>
+    <Reference Include="OSGeo.MapGuide.PlatformBase">
+      <HintPath>..\..\..\mg-4.0-install\Web\www\mapviewernet\bin\OSGeo.MapGuide.PlatformBase.dll</HintPath>
+    </Reference>
+    <Reference Include="OSGeo.MapGuide.Web">
+      <HintPath>..\..\..\mg-4.0-install\Web\www\mapviewernet\bin\OSGeo.MapGuide.Web.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

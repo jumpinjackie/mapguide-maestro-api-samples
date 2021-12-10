@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="OSGeo.MapGuide.MaestroAPI" Version="6.0.0-pre270" />
+    <PackageReference Include="OSGeo.MapGuide.MaestroAPI" Version="6.0.0-pre429" />
   </ItemGroup>
 
   <ItemGroup>

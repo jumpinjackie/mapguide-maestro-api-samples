@@ -32,10 +32,15 @@ using OSGeo.MapGuide.MaestroAPI.Services;
 using OSGeo.MapGuide.ObjectModels;
 using OSGeo.MapGuide.ObjectModels.Capabilities;
 using OSGeo.MapGuide.ObjectModels.Common;
+using System;
+using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
+using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace OSGeo.MapGuide.MaestroAPI.Native
 {
@@ -107,8 +112,8 @@ namespace OSGeo.MapGuide.MaestroAPI.Native
             {
                 var nvc = new NameValueCollection();
                 nvc[PARAM_CONFIG] = m_webconfig;
-                nvc[CommandLineArguments.Provider] = this.ProviderName;
-                nvc[CommandLineArguments.Session] = this.SessionID;
+                nvc["Provider"] = this.ProviderName;
+                nvc["SessionId"] = this.SessionID;
                 return nvc;
             }
         }

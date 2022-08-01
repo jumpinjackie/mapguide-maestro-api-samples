@@ -1,8 +1,17 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<main>
+    <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">Welcome!</h1>
+        <div class="col-lg-6 mx-auto">
+            <p class="lead mb-4">
+                This application will load up the AJAX viewer and load up a default Task Pane that
+                links to various examples of using the MapGuide Maestro API
+            </p>
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <a href="@Url.Action("Viewer")" class="btn btn-primary btn-lg px-4 gap-3">Take me there!</a>
+            </div>
+        </div>
+    </div>
+</main>

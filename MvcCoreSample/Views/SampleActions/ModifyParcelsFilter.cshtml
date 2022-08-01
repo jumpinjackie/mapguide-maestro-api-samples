@@ -1,0 +1,25 @@
+﻿@model ModifyParcelsFilterViewModel
+<div>
+    @if (!string.IsNullOrEmpty(Model.ModifiedFilter))
+    {
+        <div class="alert alert-success">
+            Layer filter has been set (to @Model.ModifiedFilter)
+        </div>
+
+        @Html.ActionLink("Reset", "ModifyParcelsFilter", "SampleActions", new ModifyParcelsFilterRequestModel { MapName = Model.MapName, Session = Model.Session, Reset = true })
+    }
+    else
+    {
+        <div class="alert alert-success">
+            Layer filter has been reset
+        </div>
+    }
+
+    @Html.ActionLink("Go back to Home", "TaskPane", "Home", new CommonInvokeUrlRequestModel { MapName = Model.MapName, Session = Model.Session })
+</div>
+@if (Model.RefreshMap)
+{
+<script type="text/javascript">
+    window.onload = function() { parent.parent.Refresh(); }
+</script>
+}

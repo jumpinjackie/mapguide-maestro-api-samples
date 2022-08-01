@@ -155,14 +155,14 @@ public class SampleActionsController : Controller
 
         if (model.Reset)
         {
-            return View(new ModifyParcelsFilterViewModel
+            return View(new ModifyParcelsFilterViewModel(model)
             {
                 RefreshMap = true
             });
         }
         else
         {
-            return View(new ModifyParcelsFilterViewModel
+            return View(new ModifyParcelsFilterViewModel(model)
             {
                 RefreshMap = true,
                 ModifiedFilter = vl.Filter,

@@ -1,6 +1,7 @@
 ﻿@model ToggleParcelsLayerViewModel
 <div>
     <p>Parcels layer @Model.Action.ToString().ToLower()</p>
+    @Html.ActionLink("Go back to Home", "TaskPane", "Home")
 </div>
 @if (Model.RefreshMap)
 {

@@ -1,0 +1,11 @@
+﻿@model ToggleParcelsLayerViewModel
+<div>
+    <div class="alert alert-success">Parcels layer @Model.Action.ToString().ToLower()</div>
+    @Html.ActionLink("Go back to Home", "TaskPane", "Home", new CommonInvokeUrlRequestModel { MapName = Model.MapName, Session = Model.Session })
+</div>
+@if (Model.RefreshMap)
+{
+<script type="text/javascript">
+    window.onload = function() { parent.parent.Refresh(); }
+</script>
+}

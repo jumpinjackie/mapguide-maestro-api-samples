@@ -1,0 +1,69 @@
+﻿@model DescribeLayerViewModel
+<h3>Layer Information</h3>
+<hr />
+<div>
+    <p>Layer Properties</p>
+    <hr />
+    <table class="table table-hover table-bordered">
+        <tr>
+            <td>Name</td>
+            <td>@Model.Name</td>
+        </tr>
+        <tr>
+            <td>Legend Label</td>
+            <td>@Model.LegendLabel</td>
+        </tr>
+        <tr>
+            <td>Display Level</td>
+            <td>@Model.DisplayOrder</td>
+        </tr>
+        <tr>
+            <td>Expand In Legend</td>
+            <td>@Model.ExpandInLegend</td>
+        </tr>
+        <tr>
+            <td>Show In Legend</td>
+            <td>@Model.ShowInLegend</td>
+        </tr>
+        <tr>
+            <td>Visible</td>
+            <td>@Model.Visible</td>
+        </tr>
+        <tr>
+            <td>Layer Definition</td>
+            <td>@Model.LayerDefinitionID</td>
+        </tr>
+        <tr>
+            <td>Has Tooltips</td>
+            <td>@Model.HasTooltips</td>
+        </tr>
+        <tr>
+            <td>Filter</td>
+            <td>@Model.Filter</td>
+        </tr>
+    </table>
+    <p>Class Definition</p>
+    <hr />
+    <p>Schema: @Model.Schema</p>
+    <p>Class Name: @Model.ClassName</p>
+    <p>Properties (* indicates identity)</p>
+    <table class="table table-hover table-bordered">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Type</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach(var prop in Model.Properties)
+        {
+            string name = (prop.IsIdentity ? "* " + prop.Name : prop.Name);
+            <tr>
+                <td>@name</td>
+                <td>@prop.Type</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    @Html.ActionLink("Go back to Home", "TaskPane", "Home", new CommonInvokeUrlRequestModel { MapName = Model.MapName, Session = Model.Session })
+</div>

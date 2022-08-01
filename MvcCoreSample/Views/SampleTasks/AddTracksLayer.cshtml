@@ -1,0 +1,22 @@
+﻿@model AddTracksViewModel
+<div>
+    @if (!string.IsNullOrEmpty(Model.Error))
+    {
+        <div class="alert alert-danger">
+            @Model.Error
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-success">
+            @Model.Message
+        </div>
+    }
+    @Html.ActionLink("Go back to Home", "TaskPane", "Home", new CommonInvokeUrlRequestModel { MapName = Model.MapName, Session = Model.Session })
+</div>
+@if (Model.RefreshMap)
+{
+<script type="text/javascript">
+    window.onload = function() { parent.parent.Refresh(); }
+</script>
+}

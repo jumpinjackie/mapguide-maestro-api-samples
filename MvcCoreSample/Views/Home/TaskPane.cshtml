@@ -1,0 +1,53 @@
+﻿@model CommonInvokeUrlRequestModel
+
+<script type="text/javascript">
+    
+    function Go()
+    {
+        var map = parent.parent.GetMapFrame();
+        var form = parent.parent.GetFormFrame();
+            
+        var url = arguments[0];
+        var params = new Array();
+        params.push("SESSION");
+        params.push(map.GetSessionId());
+        params.push("MAPNAME");
+        params.push(map.GetMapName());
+        params.push("SELECTION");
+        params.push(map.GetSelectionXML());
+            
+        if (arguments.length > 1)
+        {
+            for (var i = 1; i < arguments.length; i++)
+            {
+                params.push(arguments[i]);
+            }
+        }
+            
+        form.Submit(url, params, "taskPaneFrame"); //The name of the task pane frame
+    }
+    
+</script>
+
+<h3>Samples</h3>
+<hr />
+<p>At any time, click the <strong>home button</strong> in the task bar or the <strong>Go back</strong> link to return to this list of samples.</p>
+<p>Map/Layer Manipulation:</p>
+<ul>
+    <li>@Html.ActionLink("Add/Remove Parcels Layer", "ToggleParcelsLayer", "SampleTasks", Model)</li>
+    <li>@Html.ActionLink("Add Tracks Layer", "AddTracksLayer", "SampleTasks", Model)</li>
+    <li>@Html.ActionLink("Add Themed Districts Layer", "AddThemedDistrictsLayer", "SampleTasks", Model)</li>
+    <li>@Html.ActionLink("Toggle 'Base Map' Group", "ToggleGroupVisibility", "SampleActions", new ToggleObjectVisibilityRequestModel { Session = Model.Session, MapName = Model.MapName, Name = "Base Map" })</li>
+    <li>@Html.ActionLink("Toggle 'Parcels' Layer", "ToggleLayerVisibility", "SampleActions", new ToggleObjectVisibilityRequestModel { Session = Model.Session, MapName = Model.MapName, Name = "Parcels" })</li>
+    <li>@Html.ActionLink("Change 'Parcels' layer filter", "ModifyParcelsFilter", "SampleActions", Model)</li>
+</ul>
+<p>Feature Selection:</p>
+<ul>
+    @* These 2 actions pass more than SESSION/MAPNAME so we use the Go() client-side helper function for that *@
+    <li><a href="#" onclick="Go('@Url.Action("ListSelection", "SampleActions")')">List Selected Features</a></li>
+    <li><a href="#" onclick="Go('@Url.Action("SetSelectedFeatures", "SampleActions")')">Set Selected Features</a></li>
+</ul>
+<p>Map/Layer Information:</p>
+<ul>
+    <li>@Html.ActionLink("Layer Information", "LayerInfo", "SampleTasks", Model)</li>
+</ul>

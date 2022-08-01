@@ -1,0 +1,10 @@
+﻿@model ToggleParcelsLayerViewModel
+<div>
+    <p>Parcels layer @Model.Action.ToString().ToLower()</p>
+</div>
+@if (Model.RefreshMap)
+{
+<script type="text/javascript">
+    window.onload = function() { parent.parent.Refresh(); }
+</script>
+}

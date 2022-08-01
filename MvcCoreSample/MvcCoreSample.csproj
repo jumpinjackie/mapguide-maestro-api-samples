@@ -11,8 +11,4 @@
     <PackageReference Include="OSGeo.MapGuide.MaestroAPI" Version="6.0.0-pre464" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\SampleTasks\" />
-  </ItemGroup>
-
 </Project>

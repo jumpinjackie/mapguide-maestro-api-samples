@@ -37,9 +37,9 @@
     <li>@Html.ActionLink("Add/Remove Parcels Layer", "ToggleParcelsLayer", "SampleTasks", Model)</li>
     <li>@Html.ActionLink("Add Tracks Layer", "AddTracksLayer", "SampleTasks", Model)</li>
     <li>@Html.ActionLink("Add Themed Districts Layer", "AddThemedDistrictsLayer", "SampleTasks", Model)</li>
-    <li>@Html.ActionLink("Toggle 'Base Map' Group", "ToggleGroupVisibility", "SampleTasks", new ToggleObjectVisibilityRequestModel { Session = Model.Session, MapName = Model.MapName, Name = "Base Map" })</li>
-    <li>@Html.ActionLink("Toggle 'Parcels' Layer", "ToggleLayerVisibility", "SampleTasks", new ToggleObjectVisibilityRequestModel { Session = Model.Session, MapName = Model.MapName, Name = "Parcels" })</li>
-    <li>@Html.ActionLink("Change 'Parcels' layer filter", "ModifyParcelsFilter", "SampleTasks", Model)</li>
+    <li>@Html.ActionLink("Toggle 'Base Map' Group", "ToggleGroupVisibility", "SampleActions", new ToggleObjectVisibilityRequestModel { Session = Model.Session, MapName = Model.MapName, Name = "Base Map" })</li>
+    <li>@Html.ActionLink("Toggle 'Parcels' Layer", "ToggleLayerVisibility", "SampleActions", new ToggleObjectVisibilityRequestModel { Session = Model.Session, MapName = Model.MapName, Name = "Parcels" })</li>
+    <li>@Html.ActionLink("Change 'Parcels' layer filter", "ModifyParcelsFilter", "SampleActions", Model)</li>
 </ul>
 <p>Feature Selection:</p>
 <ul>

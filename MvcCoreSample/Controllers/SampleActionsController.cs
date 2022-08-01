@@ -17,7 +17,7 @@ public class SampleActionsController : Controller
         _connFactory = connFactory;
     }
 
-    [HttpPost]
+    [HttpGet]
     public IActionResult ToggleLayerVisibility(ToggleObjectVisibilityRequestModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -31,15 +31,15 @@ public class SampleActionsController : Controller
 
             rtMap.Save(); //Always save changes after modifying
 
-            return View(new ToggleObjectVisibilityViewModel { Name = layer.Name, Visible = layer.Visible, RefreshMap = true });
+            return View(new ToggleObjectVisibilityViewModel(model) { Message = "Layer (" + layer.Name + ") visible: " + layer.Visible, RefreshMap = true });
         }
         else
         {
-            return View(new ToggleObjectVisibilityViewModel { Error = "Layer (" + model.Name + ") not found!" });
+            return View(new ToggleObjectVisibilityViewModel(model) { Error = "Layer (" + model.Name + ") not found!" });
         }
     }
 
-    [HttpPost]
+    [HttpGet]
     public IActionResult ToggleGroupVisibility(ToggleObjectVisibilityRequestModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -52,11 +52,11 @@ public class SampleActionsController : Controller
 
             rtMap.Save(); //Always save changes after modifying
 
-            return View(new ToggleObjectVisibilityViewModel { Name = group.Name, Visible = group.Visible, RefreshMap = true });
+            return View(new ToggleObjectVisibilityViewModel(model) { Message = "Group (" + group.Name + ") visible: " + group.Visible, RefreshMap = true });
         }
         else
         {
-            return View(new ToggleObjectVisibilityViewModel { Error = "Group (" + model.Name + ") not found!" });
+            return View(new ToggleObjectVisibilityViewModel(model) { Error = "Group (" + model.Name + ") not found!" });
         }
     }
 
@@ -97,7 +97,7 @@ public class SampleActionsController : Controller
         return View(new SetSelectedFeaturesViewModel { SelectionCount = added, LayerName = rtLayer.Name, SelectionXml = selXml });
     }
 
-    [HttpPost]
+    [HttpGet]
     public IActionResult ModifyParcelsFilter(ModifyParcelsFilterRequestModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -105,7 +105,7 @@ public class SampleActionsController : Controller
         var rtMap = SamplesHelper.OpenMap(conn, model);
 
         int layerIndex = rtMap.Layers.IndexOf("Parcels");
-        RuntimeMapLayer layer = rtMap.Layers[layerIndex];
+        var layer = rtMap.Layers[layerIndex];
 
         //Here is now the layer replacement technique works:
         //

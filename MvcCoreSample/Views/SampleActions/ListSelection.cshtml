@@ -1,0 +1,36 @@
+﻿@model ListSelectionViewModel
+<h3>Current Map Selection</h3>
+<hr />
+<div>
+    @if (Model.TotalSelectedCount > 0)
+    {
+        @foreach(var layer in Model.Layers)
+        {
+            <p>Layer: @layer.LayerName (@layer.Features.Count selected features)</p>
+            <table class="table table-hover table-bordered">
+                <tbody>
+                @foreach (var feat in layer.Features)
+                {
+                    <tr>
+                    @foreach (var fv in feat.FeatureIdValues)
+                    {
+                        <td>@fv</td>
+                    }
+                        <td>
+                            @Html.ActionLink("More Info", "FeatureInfo", "SampleActions", new FeatureInfoRequestModel { MapName = Model.MapName, Session = Model.Session, FeatureId = feat.FeatureId, LayerId = layer.LayerObjectId })
+                        </td>
+                    </tr>
+                }
+                </tbody>
+            </table>
+        }
+    }
+    else
+    {
+        <div class="alert alert-info">
+            Nothing selected. Select one or more features on the map using the select tool
+        </div>
+    }
+
+    @Html.ActionLink("Go back to Home", "TaskPane", "Home", new CommonInvokeUrlRequestModel { MapName = Model.MapName, Session = Model.Session })
+</div>

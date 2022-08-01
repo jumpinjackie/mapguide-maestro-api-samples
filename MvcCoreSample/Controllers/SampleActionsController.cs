@@ -3,6 +3,7 @@ using MvcCoreSample.Models;
 using OSGeo.MapGuide.MaestroAPI.Mapping;
 using OSGeo.MapGuide.MaestroAPI.Services;
 using OSGeo.MapGuide.ObjectModels.LayerDefinition;
+using System.Net;
 using System.Text;
 
 namespace MvcCoreSample.Controllers;
@@ -67,34 +68,42 @@ public class SampleActionsController : Controller
         var conn = _connFactory(model.Session);
         var rtMap = SamplesHelper.OpenMap(conn, model);
 
-        //Get the selected layer
-        var rtLayer = rtMap.Layers.GetByObjectId(model.LayerObjectId);
-
-        //Query using the user filter
-        var reader = conn.FeatureService.QueryFeatureSource(
-                                    rtLayer.FeatureSourceID,
-                                    rtLayer.QualifiedClassName,
-                                    model.Filter);
-
-        //Get the selection set
-        var sel = new MapSelection(rtMap);
-        MapSelection.LayerSelection layerSel;
-        if (!sel.Contains(rtLayer))
+        if (model.LayerObjectId != null && model.Filter != null)
         {
-            sel.Add(rtLayer);
+
+            //Get the selected layer
+            var rtLayer = rtMap.Layers.GetByObjectId(model.LayerObjectId);
+
+            //Query using the user filter
+            var reader = conn.FeatureService.QueryFeatureSource(
+                                        rtLayer.FeatureSourceID,
+                                        rtLayer.QualifiedClassName,
+                                        model.Filter);
+
+            //Get the selection set
+            var sel = new MapSelection(rtMap);
+            MapSelection.LayerSelection layerSel;
+            if (!sel.Contains(rtLayer))
+            {
+                sel.Add(rtLayer);
+            }
+            layerSel = sel[rtLayer];
+
+            //Clear any existing selections
+            layerSel.Clear();
+
+            //Populate selection set with query result
+            int added = layerSel.AddFeatures(reader, -1);
+
+            //Generate selection string
+            string selXml = sel.ToXml();
+
+            return View(new SetSelectedFeaturesViewModel(model, rtMap) { Filter = model.Filter, LayerObjectId = model.LayerObjectId, SelectionCount = added, LayerName = rtLayer.Name, SelectionXml = selXml });
         }
-        layerSel = sel[rtLayer];
-
-        //Clear any existing selections
-        layerSel.Clear();
-
-        //Populate selection set with query result
-        int added = layerSel.AddFeatures(reader, -1);
-
-        //Generate selection string
-        string selXml = sel.ToXml();
-
-        return View(new SetSelectedFeaturesViewModel { SelectionCount = added, LayerName = rtLayer.Name, SelectionXml = selXml });
+        else
+        {
+            return View(new SetSelectedFeaturesViewModel(model, rtMap) { });
+        }
     }
 
     [HttpGet]
@@ -177,8 +186,8 @@ public class SampleActionsController : Controller
         ArgumentNullException.ThrowIfNull(model);
         var conn = _connFactory(model.Session);
         var rtMap = SamplesHelper.OpenMap(conn, model);
-        var selection = new MapSelection(rtMap, model.SelectionXml);
-        return View(new ListSelectionViewModel(selection));
+        var selection = new MapSelection(rtMap, model.Selection);
+        return View(new ListSelectionViewModel(selection, model));
     }
 
     [HttpPost]
@@ -197,7 +206,7 @@ public class SampleActionsController : Controller
         return View(new DescribeLayerViewModel(rtLayer, clsDef));
     }
 
-    [HttpPost]
+    [HttpGet]
     public IActionResult FeatureInfo(FeatureInfoRequestModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
@@ -230,6 +239,6 @@ public class SampleActionsController : Controller
                                                             selFilter);
 
 
-        return View(new FeatureInfoViewModel(reader));
+        return View(new FeatureInfoViewModel(reader, model));
     }   
 }

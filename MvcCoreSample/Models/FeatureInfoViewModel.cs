@@ -1,16 +1,18 @@
 ﻿using OSGeo.MapGuide.MaestroAPI.Feature;
+using OSGeo.MapGuide.MaestroAPI.Schema;
 
 namespace MvcCoreSample.Models;
 
-public class FeatureInfoViewModel
+public class FeatureInfoViewModel : CommonResponseModel
 {
-    public FeatureInfoViewModel(IFeatureReader reader)
+    public FeatureInfoViewModel(IFeatureReader reader, CommonInvokeUrlRequestModel model)
+        : base(model)
     {
         //Collect the field names
         var properties = new FeaturePropertyValue[reader.FieldCount];
         for (int i = 0; i < reader.FieldCount; i++)
         {
-            properties[i].Name = reader.GetName(i);
+            properties[i] = new FeaturePropertyValue { Name = reader.GetName(i) };
         }
 
         //Write out the attribute table

@@ -2,9 +2,10 @@
 
 namespace MvcCoreSample.Models;
 
-public class ListSelectionViewModel
+public class ListSelectionViewModel : CommonResponseModel
 {
-    public ListSelectionViewModel(MapSelection selection)
+    public ListSelectionViewModel(MapSelection selection, CommonInvokeUrlRequestModel model)
+        : base(model)
     {
         foreach (var layerSel in selection)
         {
@@ -13,6 +14,8 @@ public class ListSelectionViewModel
     }
 
     public List<LayerSelectionModel> Layers { get; } = new List<LayerSelectionModel>();
+
+    public int TotalSelectedCount => Layers.Sum(l => l.Features.Count);
 }
 
 public class LayerSelectionModel

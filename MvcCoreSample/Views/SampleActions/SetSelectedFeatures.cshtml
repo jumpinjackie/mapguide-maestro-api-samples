@@ -1,0 +1,38 @@
+﻿@model SetSelectedFeaturesViewModel
+<h3>Set Selected Features</h3>
+<hr />
+@if (Model.SelectionXml != null)
+{
+<script type="text/javascript">
+    window.onload = function() {
+        debugger;
+        parent.parent.GetMapFrame().SetSelectionXML('@Html.Raw(Model.SelectionXml)');
+    }
+</script>
+<div class="alert alert-info">
+    Added @Model.SelectionCount features in @Model.LayerName selected
+</div>
+}
+else
+{
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.HiddenFor(m => m.MapName)
+        @Html.HiddenFor(m => m.Session)
+        <div class="alert alert-info">
+            <p>Select a map layer and specify a filter (eg. Layer: Parcels, Filter: <strong>RNAME LIKE 'SCHMITT%'</strong>)</p>
+            <p>Features in this layer that match the filter will be selected</p>
+        </div>
+        <p>Layer:</p>
+        @Html.DropDownListFor(m => m.LayerObjectId, Model.AvailableLayers)
+        <p>Filter:</p>
+        @Html.EditorFor(m => m.Filter)
+        
+        <input type="submit" value="Select" />
+    }
+</div>
+}
+<div>
+    @Html.ActionLink("Go back to Home", "TaskPane", "Home", new CommonInvokeUrlRequestModel { MapName = Model.MapName, Session = Model.Session })
+</div>

@@ -2,5 +2,8 @@
 
 public class ListSelectionRequestModel : CommonInvokeUrlRequestModel
 {
-    public string SelectionXml { get; set; } = null!;
+    /// <summary>
+    /// The active selection set XML
+    /// </summary>
+    public string Selection { get; set; } = null!;
 }

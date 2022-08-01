@@ -6,7 +6,9 @@ using OSGeo.MapGuide.ObjectModels.LayerDefinition;
 namespace MvcCoreSample.Controllers;
 
 /// <summary>
-/// Every route in this controller represents a URL that you can set up an InvokeURL command to call into
+/// Every route in this controller represents a URL that only takes session/mapname parameters.
+/// 
+/// You can set up an InvokeURL command to call into any route here if you like
 /// </summary>
 public class SampleTasksController : Controller
 {
@@ -71,6 +73,7 @@ public class SampleTasksController : Controller
         }
     }
 
+    /*
     [HttpGet]
     public IActionResult SetSelectedFeatures(CommonInvokeUrlRequestModel model)
     {
@@ -80,6 +83,7 @@ public class SampleTasksController : Controller
 
         return View(new LayerInfoViewModel(rtMap));
     }
+    */
 
     [HttpGet]
     public IActionResult LayerInfo(CommonInvokeUrlRequestModel model)

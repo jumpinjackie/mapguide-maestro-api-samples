@@ -91,7 +91,7 @@ public class SampleTasksController : Controller
         ArgumentNullException.ThrowIfNull(model);
         var conn = _connFactory(model.Session);
         var rtMap = SamplesHelper.OpenMap(conn, model);
-        return View(new LayerInfoViewModel(rtMap));
+        return View(new LayerInfoViewModel(rtMap, model));
     }
 
     [HttpGet]

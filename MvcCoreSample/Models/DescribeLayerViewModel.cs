@@ -5,7 +5,7 @@ namespace MvcCoreSample.Models;
 
 public record PropertyDefn(string Name, string Type, bool IsIdentity = false);
 
-public class DescribeLayerViewModel
+public class DescribeLayerViewModel : CommonResponseModel
 {
     public string Name { get; set; } = null!;
 
@@ -31,7 +31,8 @@ public class DescribeLayerViewModel
 
     public List<PropertyDefn> Properties { get; } = new List<PropertyDefn>();
 
-    public DescribeLayerViewModel(RuntimeMapLayer layer, ClassDefinition clsDef)
+    public DescribeLayerViewModel(RuntimeMapLayer layer, ClassDefinition clsDef, CommonInvokeUrlRequestModel model)
+        : base(model)
     {
         this.Name = layer.Name;
         this.LegendLabel = layer.LegendLabel;

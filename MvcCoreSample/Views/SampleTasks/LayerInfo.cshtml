@@ -1,0 +1,19 @@
+﻿@model LayerInfoViewModel
+<h3>Layer Information</h3>
+<hr />
+<div>
+    @using (Html.BeginForm("DescribeLayer", "SampleActions"))
+    {
+        @Html.Hidden("MapName", Model.MapName)
+        @Html.Hidden("Session", Model.Session)
+
+        <div class="alert alert-info">
+            <p>Select a map layer and click describe to get the properties of that layer and its associated class definition</p>
+        </div>
+        <p>Layer:</p>
+        @Html.DropDownList("LayerObjectId", Model.AvailableLayers)
+        
+        <input type="submit" value="Describe" />
+    }
+    @Html.ActionLink("Go back to Home", "TaskPane", "Home", new CommonInvokeUrlRequestModel { MapName = Model.MapName, Session = Model.Session })
+</div>

@@ -3,16 +3,17 @@ using OSGeo.MapGuide.MaestroAPI.Mapping;
 
 namespace MvcCoreSample.Models;
 
-public class LayerInfoViewModel
+public class LayerInfoViewModel : CommonResponseModel
 {
-    public LayerInfoViewModel(RuntimeMap rtMap)
+    public LayerInfoViewModel(RuntimeMap rtMap, CommonInvokeUrlRequestModel model)
+        : base(model)
     {
-        this.Layers = new List<SelectListItem>();
+        this.AvailableLayers = new List<SelectListItem>();
         foreach (RuntimeMapLayer rtLayer in rtMap.Layers)
         {
-            this.Layers.Add(new SelectListItem(rtLayer.Name, rtLayer.ObjectId));
+            this.AvailableLayers.Add(new SelectListItem(rtLayer.Name, rtLayer.ObjectId));
         }
     }
 
-    public List<SelectListItem> Layers { get; private set; } = null!;
+    public List<SelectListItem> AvailableLayers { get; private set; } = null!;
 }

@@ -203,7 +203,7 @@ public class SampleActionsController : Controller
         //Get the class definition
         var clsDef = conn.FeatureService.GetClassDefinition(rtLayer.FeatureSourceID, rtLayer.QualifiedClassName);
 
-        return View(new DescribeLayerViewModel(rtLayer, clsDef));
+        return View(new DescribeLayerViewModel(rtLayer, clsDef, model));
     }
 
     [HttpGet]

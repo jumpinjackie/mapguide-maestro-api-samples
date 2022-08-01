@@ -60,13 +60,12 @@ public class HomeController : Controller
                 wl2.EnablePingServer = true;
 
             wl.Title = "Maestro API Web Samples";
-            wl.TaskPane.InitialTask = Url.Action(nameof(TaskPane), "Home", null, Request.Scheme);
+            wl.TaskPane.InitialTask = "../../Home/TaskPane";
 
             string resId = "Session:" + conn.SessionID + "//Sheboygan.WebLayout";
             conn.ResourceService.SaveResourceAs(wl, resId);
 
-            var baseUrl = new Uri(_conf["MapGuideWebTierBaseUrl"]);
-            return Redirect(new Uri(baseUrl, "mapviewerajax/?WEBLAYOUT=" + resId + "&SESSION=" + conn.SessionID).ToString());
+            return Redirect("/mapguide/mapviewerajax/?WEBLAYOUT=" + resId + "&SESSION=" + conn.SessionID);
         }
         else
         {

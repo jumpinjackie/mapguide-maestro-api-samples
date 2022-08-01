@@ -32,7 +32,7 @@ public class SampleTasksController : Controller
 
             rtMap.Save();
 
-            return View(new ToggleParcelsLayerViewModel { RefreshMap = true, Action = ParcelLayerAction.Removed });
+            return View(new ToggleParcelsLayerViewModel(model) { RefreshMap = true, Action = ParcelLayerAction.Removed });
         }
         else
         {
@@ -67,7 +67,7 @@ public class SampleTasksController : Controller
 
             rtMap.Save();
 
-            return View(new ToggleParcelsLayerViewModel { RefreshMap = true, Action = ParcelLayerAction.Added });
+            return View(new ToggleParcelsLayerViewModel(model) { RefreshMap = true, Action = ParcelLayerAction.Added });
         }
     }
 
@@ -99,30 +99,40 @@ public class SampleTasksController : Controller
         var tracks = rtMap.Layers["Tracks"];
         if (tracks != null)
         {
-            return View(new AddTracksViewModel
+            return View(new AddTracksViewModel(model)
             {
-                Error = "Themed districts layer already added"
+                Error = "Tracks layer already added"
             });
         }
         else
         {
-            //Add our themed districts layer
+            var mpSvc = (IMappingService)conn.GetService((int)ServiceType.Mapping);
+            string groupName = "Transportation";
+            var group = rtMap.Groups[groupName];
+            if (group == null)
+            {
+                group = mpSvc.CreateMapGroup(rtMap, groupName);
+                rtMap.Groups.Add(group);
+            }
+
+            //For some reason, the Sheboygan sample data does not have a Rail
+            //Layer Definition, so what better time to show how to create a
+            //layer dynamically :)
 
             //Our Feature Source
-            string fsId = "Library://Samples/Sheboygan/Data/VotingDistricts.FeatureSource";
+            string fsId = "Library://Samples/Sheboygan/Data/Rail.FeatureSource";
 
             //The place we'll store the layer definition
-            string layerId = "Session:" + conn.SessionID + "//ThemedVotingDistricts.LayerDefinition";
+            string layerId = "Session:" + conn.SessionID + "//Rail.LayerDefinition";
 
-            SamplesHelper.CreateDistrictsLayer(conn, fsId, layerId);
+            SamplesHelper.CreateTracksLayer(conn, fsId, layerId);
 
             var layerDef = (ILayerDefinition)conn.ResourceService.GetResource(layerId);
-            var mpSvc = (IMappingService)conn.GetService((int)ServiceType.Mapping);
             var layer = mpSvc.CreateMapLayer(rtMap, layerDef);
 
-            layer.Name = "ThemedDistricts";
-            layer.Group = "";
-            layer.LegendLabel = "Themed Districts";
+            layer.Group = groupName;
+            layer.Name = "Tracks";
+            layer.LegendLabel = "Tracks";
             layer.ShowInLegend = true;
             layer.ExpandInLegend = true;
             layer.Selectable = true;
@@ -138,16 +148,16 @@ public class SampleTasksController : Controller
 
             rtMap.Save();
 
-            return View(new AddTracksViewModel
+            return View(new AddTracksViewModel(model)
             {
-                Message = "Themed districts layer added",
+                Message = "Tracks layer added",
                 RefreshMap = true
             });
         }
     }
 
     [HttpGet]
-    public IActionResult AddThemedDistricts(CommonInvokeUrlRequestModel model)
+    public IActionResult AddThemedDistrictsLayer(CommonInvokeUrlRequestModel model)
     {
         ArgumentNullException.ThrowIfNull(model);
         var conn = _connFactory(model.Session);
@@ -156,7 +166,7 @@ public class SampleTasksController : Controller
 
         if (districts != null)
         {
-            return View(new AddThemedDistrictsViewModel
+            return View(new AddThemedDistrictsViewModel(model)
             {
                 Error = "Themed districts layer already added"
             });
@@ -195,7 +205,7 @@ public class SampleTasksController : Controller
 
             rtMap.Save();
 
-            return View(new AddThemedDistrictsViewModel
+            return View(new AddThemedDistrictsViewModel(model)
             {
                 Message = "Themed districts layer added",
                 RefreshMap = true

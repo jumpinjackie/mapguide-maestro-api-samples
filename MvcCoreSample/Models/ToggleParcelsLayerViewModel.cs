@@ -6,8 +6,12 @@ public enum ParcelLayerAction
     Removed
 }
 
-public class ToggleParcelsLayerViewModel
+public class ToggleParcelsLayerViewModel : CommonResponseModel
 {
+    public ToggleParcelsLayerViewModel(CommonInvokeUrlRequestModel model)
+        : base(model)
+    { }
+
     public ParcelLayerAction Action { get; set; }
 
     public bool RefreshMap { get; set; }

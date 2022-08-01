@@ -1,7 +1,11 @@
 ﻿namespace MvcCoreSample.Models;
 
-public class AddTracksViewModel
+public class AddTracksViewModel : CommonResponseModel
 {
+    public AddTracksViewModel(CommonInvokeUrlRequestModel model)
+        : base(model)
+    { }
+
     public string? Error { get; set; }
 
     public string? Message { get; set; }

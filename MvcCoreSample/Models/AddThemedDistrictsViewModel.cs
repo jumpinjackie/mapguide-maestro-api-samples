@@ -1,7 +1,11 @@
 ﻿namespace MvcCoreSample.Models;
 
-public class AddThemedDistrictsViewModel
+public class AddThemedDistrictsViewModel : CommonResponseModel
 {
+    public AddThemedDistrictsViewModel(CommonInvokeUrlRequestModel model)
+        : base(model)
+    { }
+
     public string? Error { get; set; }
 
     public string? Message { get; set; }

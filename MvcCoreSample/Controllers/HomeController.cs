@@ -60,11 +60,15 @@ public class HomeController : Controller
                 wl2.EnablePingServer = true;
 
             wl.Title = "Maestro API Web Samples";
+            // The initial task pane URL is always assumed to be relative to /mapguide/mapviewer[net|php|java|ajax]
+            // Computing an absolute URL here will not work
             wl.TaskPane.InitialTask = "../../Home/TaskPane";
 
             string resId = "Session:" + conn.SessionID + "//Sheboygan.WebLayout";
             conn.ResourceService.SaveResourceAs(wl, resId);
 
+            // This application is set up to proxy all MG Web Tier requests to the underlying IIS/Apache server, so we
+            // can redirect to the AJAX viewer in this origin
             return Redirect("/mapguide/mapviewerajax/?WEBLAYOUT=" + resId + "&SESSION=" + conn.SessionID);
         }
         else

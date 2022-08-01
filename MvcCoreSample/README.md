@@ -11,10 +11,14 @@ This application demonstrates the following:
  * Querying selected features
  * Applying new active selections programmatically
 
- ## Requirements
+## Requirements
 
 You must have an existing MapGuide installation with IIS or the bundled Apache already running. Although Maestro API has a wide-range of supported MapGuide versions, for best results you should have either the latest stable 3.1.2 release or the current 4.0 Preview 3 release installed.
 
 This application runs on top of a separate http server (Kestrel) and proxies all relevant MapGuide Web Tier requests to IIS/Apache
 
 You need [Visual Studio](https://visualstudio.microsoft.com/vs/) 2022 (with .net 6.0 workloads enabled) or the [.net 6.0 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/6.0) to build and run this application.
+
+## Additional configuration
+
+By default we assume a MapGuide Web Tier installation configured for Windows/IIS. If this is not the case, edit the `MapGuideWebTierBaseUrl` in `appsettings.json` and set it to the correct base URL of your MapGuide Web Tier installation.
